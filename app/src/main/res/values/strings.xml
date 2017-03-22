@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dagger2 Tutorial</string>
+    <string name="poster_image">poster image</string>
 </resources>
