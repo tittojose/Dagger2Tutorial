@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import me.tittojose.dagger2tutorial.model.Movie;
 class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
 
     private List<Movie> moviesList;
+    private Picasso picasso;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvItemMovieTitle;
@@ -32,8 +34,9 @@ class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
     }
 
 
-    MoviesAdapter(List<Movie> moviesList) {
+    MoviesAdapter(List<Movie> moviesList, Picasso picasso) {
         this.moviesList = moviesList;
+        this.picasso = picasso;
     }
 
     @Override
@@ -51,9 +54,8 @@ class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
         String url = "http://image.tmdb.org/t/p/w342/" + movie.posterPath;
         holder.tvItemMovieTitle.setText(movie.title);
 
-        Glide.with(holder.imgViewItemMoviePoster.getContext())
+        picasso.with(holder.imgViewItemMoviePoster.getContext())
                 .load(url)
-                .centerCrop()
                 .into(holder.imgViewItemMoviePoster);
 
     }

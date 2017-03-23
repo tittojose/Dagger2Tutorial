@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +26,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     MovieAPIService movieAPIService;
+    Picasso picasso;
+
     Call<MoviesList> movieListRequest;
 
     RecyclerView rvMovies;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         initializeUi();
 
         movieAPIService = Dagger2TutorialApp.get(this).getMovieAPIService();
+        picasso = Dagger2TutorialApp.get(this).getPicasso();
 
         movieListRequest = movieAPIService.getPopularMovies();
 
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeUi() {
         rvMovies = (RecyclerView) findViewById(R.id.rvMovies);
-        mAdapter = new MoviesAdapter(mMovieList);
+        mAdapter = new MoviesAdapter(mMovieList, picasso);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);

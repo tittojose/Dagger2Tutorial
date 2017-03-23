@@ -3,14 +3,17 @@ package me.tittojose.dagger2tutorial;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+
+import com.squareup.picasso.Picasso;
 
 import me.tittojose.dagger2tutorial.network.MovieAPIService;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class Dagger2TutorialApp extends Application {
 
     MovieAPIService movieAPIService;
+    Picasso picasso;
 
     public static Dagger2TutorialApp get(Activity activity) {
         return (Dagger2TutorialApp) activity.getApplication();
@@ -19,19 +22,22 @@ public class Dagger2TutorialApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Context context = this;
+        Timber.plant(new Timber.DebugTree());
 
-        GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(gsonConverterFactory)
+        Dagger2TutorialAppComponent component = DaggerDagger2TutorialAppComponent.builder()
+                .contextModule(new ContextModule(context))
                 .build();
 
-        movieAPIService = retrofit.create(MovieAPIService.class);
-
+        movieAPIService = component.getMovieApiService();
+        picasso = component.getPicasso();
     }
 
     public MovieAPIService getMovieAPIService() {
         return movieAPIService;
+    }
+
+    public Picasso getPicasso() {
+        return picasso;
     }
 }
