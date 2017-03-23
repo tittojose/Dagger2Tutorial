@@ -1,7 +1,6 @@
 package me.tittojose.dagger2tutorial.screens;
 
 
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +48,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Movie movie = moviesList.get(position);
 
-        String url = "http://image.tmdb.org/t/p/w185/" + movie.posterPath;
+        String url = "http://image.tmdb.org/t/p/w342/" + movie.posterPath;
         holder.tvItemMovieTitle.setText(movie.title);
 
         Glide.with(holder.imgViewItemMoviePoster.getContext())

@@ -3,6 +3,7 @@ package me.tittojose.dagger2tutorial.screens;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 MoviesList moviesList = response.body();
                 Toast.makeText(MainActivity.this, moviesList.results.size() + "", Toast.LENGTH_SHORT).show();
                 mMovieList.addAll(moviesList.results);
-                mAdapter = new MoviesAdapter(mMovieList);
-                rvMovies.setAdapter(mAdapter);
+//                mAdapter = new MoviesAdapter(mMovieList);
+//                rvMovies.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -61,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = (RecyclerView) findViewById(R.id.rvMovies);
         mAdapter = new MoviesAdapter(mMovieList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        rvMovies.setLayoutManager(mLayoutManager);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+
+
+        rvMovies.setLayoutManager(gridLayoutManager);
         rvMovies.setItemAnimator(new DefaultItemAnimator());
         rvMovies.setAdapter(mAdapter);
 
