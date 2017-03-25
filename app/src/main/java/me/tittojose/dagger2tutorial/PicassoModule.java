@@ -12,7 +12,10 @@ import okhttp3.OkHttpClient;
 
 @Module(includes = {ContextModule.class, NetworkModule.class})
 public class PicassoModule {
+
+
     @Provides
+    @Dagger2ApplicationScope
     public Picasso getPicasso(Context context, OkHttp3Downloader okHttp3Downloader) {
         return new Picasso.Builder(context)
                 .downloader(okHttp3Downloader)
@@ -20,6 +23,7 @@ public class PicassoModule {
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public OkHttp3Downloader getOkHttp3Downloader(OkHttpClient okHttpClient) {
         return new OkHttp3Downloader(okHttpClient);
     }

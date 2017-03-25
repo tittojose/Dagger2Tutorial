@@ -17,6 +17,7 @@ import timber.log.Timber;
 public class NetworkModule {
 
     @Provides
+    @Dagger2ApplicationScope
     public OkHttpClient getOkHttpClient(Interceptor logger, Cache cache) {
         return new OkHttpClient.Builder()
                 .addInterceptor(logger)
@@ -25,6 +26,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public Interceptor getInterceptor() {
 
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -36,11 +38,13 @@ public class NetworkModule {
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public Cache getCache(File cacheDir) {
         return new Cache(cacheDir, 10 * 1000 * 1000);
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public File getFile(Context context) {
         File okhttpCache = new File(context.getCacheDir(), "okhttp_cache");
         okhttpCache.mkdirs();

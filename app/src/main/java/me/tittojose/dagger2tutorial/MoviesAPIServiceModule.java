@@ -11,12 +11,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MoviesAPIServiceModule {
 
     @Provides
+    @Dagger2ApplicationScope
     public MovieAPIService movieAPIService(Retrofit retrofit) {
 
         return retrofit.create(MovieAPIService.class);
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public Retrofit getRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")
@@ -26,6 +28,7 @@ public class MoviesAPIServiceModule {
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public GsonConverterFactory getGsonConverterFactory() {
         return GsonConverterFactory.create();
     }

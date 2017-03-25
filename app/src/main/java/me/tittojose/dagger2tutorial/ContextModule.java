@@ -16,6 +16,7 @@ public class ContextModule {
     }
 
     @Provides
+    @Dagger2ApplicationScope
     public Context getContext() {
         return this.context;
     }
